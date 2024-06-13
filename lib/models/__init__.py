@@ -1,4 +1,13 @@
-import sqlite3
+from .dog import Dog
+from .adopter import Adopter
+from .adoption import Adoption
 
-CONN = sqlite3.connect('company.db')
-CURSOR = CONN.cursor()
+# Drop existing tables if they exist
+Dog.drop_table()
+Adopter.drop_table()
+Adoption.drop_table()
+
+# Create tables
+Dog.create_table()
+Adopter.create_table()
+Adoption.create_table()
