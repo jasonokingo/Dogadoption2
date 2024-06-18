@@ -10,6 +10,11 @@ class Adoption:
         self.adoption_date = adoption_date
         self.returned = returned
 
+    def __str__(self):
+        return (f"ID: {self.id}, Dog ID: {self.dog_id}, Adopter ID: {self.adopter_id}, "
+                f"Adoption Date: {self.adoption_date}, Returned: {self.returned}")
+
+
     @classmethod
     def create_table(cls):
         sql = """
@@ -63,7 +68,7 @@ class Adoption:
             conn.commit()
 
     @classmethod
-    def find_all(cls):
+    def select_adoptions(cls):
         sql = "SELECT * FROM adoptions"
         cursor.execute(sql)
         rows = cursor.fetchall()

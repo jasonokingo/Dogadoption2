@@ -14,15 +14,12 @@ Installation Requirements
 Git
 
 Installation instruction
-Git clone 
+Git clone git@github.com:jasonokingo/Dogadoption2.git
 
 Live Link Git
-[My website][]
+[Git][https://github.com/jasonokingo/Dogadoption2.git]
 
 Technologies used:
-React
-HTML 
-CSS
 Pyhton
 
 Support and contact detail:
@@ -31,3 +28,6 @@ github.com/jasonokingo
 License: 
 The content of this site is licensed under the MIT license 
 Copyright (c) 2024.
+
+
+[Video](<../../../Downloads/Untitled Video June 18, 2024 3_50 PM.webm>)

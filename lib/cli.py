@@ -68,58 +68,46 @@ def show_items():
     print("3. Adoptions")
     item_type = input("Enter your choice: ")
     if item_type == "1":
-        show_dogs()
+        list_dogs()
     elif item_type == "2":
-        show_adopters()
+        list_adopters()
     elif item_type == "3":
-        show_adoptions()
+        list_adoptions()
     else:
         print("Invalid choice. Please select a valid option.")
 
-def show_dogs():
-    dogs = Dog.find_all()
-    if dogs:
-        print("\nAvailable dogs for adoption:")
-        for dog in dogs:
-            print(f"ID: {dog.id}, Name: {dog.name}, Breed: {dog.breed}, Age: {dog.age}, Gender: {dog.gender}, Vaccinated: {'Yes' if dog.vaccinated else 'No'}")
-    else:
-        print("\nNo dogs found for adoption")
+def list_dogs():
+    dogs = Dog.select_dogs()
+    for dog in dogs:
+        print(f"ID: {dog.id}, Name: {dog.name}, Breed: {dog.breed}, Age: {dog.age}, Gender: {dog.gender}, Vaccinated: {dog.vaccinated}")
 
-def show_adopters():
-    adopters = Adopter.find_all()
-    if adopters:
-        print("\nList of adopters:")
-        for adopter in adopters:
-            print(f"ID: {adopter.id}, Name: {adopter.name}, Contact: {adopter.contact}")
-    else:
-        print("\nNo adopters found")
+def list_adopters():
+    adopters = Adopter.select_adopters()
+    for adopter in adopters:
+        print(f"ID: {adopter.id}, Name: {adopter.name}, Contact: {adopter.contact}")
 
-def show_adoptions():
-    adoptions = Adoption.find_all()
-    if adoptions:
-        print("\nAppointments for adoption:")
-        for adoption in adoptions:
-            print(f"ID: {adoption.id}, Dog ID: {adoption.dog_id}, Adopter ID: {adoption.adopter_id}, Adoption Date: {adoption.adoption_date}, Adopted: {'Yes' if adoption.adopted else 'No'}")
-    else:
-        print("\nNo appointments for adoption found")
+def list_adoptions():
+    adoptions = Adoption.select_adoptions()
+    for adoption in adoptions:
+        print(f"ID: {adoption.id}, Dog ID: {adoption.dog_id}, Adopter ID: {adoption.adopter_id}, Adoption Date: {adoption.adoption_date}, Returned: {'Yes' if adoption.returned else 'No'}")
+
 
 def delete_item():
     print("\nSelect the item type to delete:")
     print("1. Dog")
-    print("2. Adopter")
-    print("3. Adoption")
     item_type = input("Enter your choice: ")
     if item_type == "1":
         delete_dog()
-    elif item_type == "2":
-        delete_adopter()
-    elif item_type == "3":
-        delete_adoption()
-    else:
+  
         print("Invalid choice. Please select a valid option.")
 
 def delete_dog():
-    dog_id = int(input("Enter the ID of the dog to delete: "))
+    try:
+        dog_id = int(input("Enter the ID of the dog to delete: "))
+    except ValueError:
+        print("Invalid input. Please enter a numeric ID.")
+        return
+    
     dog = Dog.find_by_id(dog_id)
     if dog:
         dog.delete()
@@ -127,23 +115,7 @@ def delete_dog():
     else:
         print("\nDog not found")
 
-def delete_adopter():
-    adopter_id = int(input("Enter the ID of the adopter to delete: "))
-    adopter = Adopter.find_by_id(adopter_id)
-    if adopter:
-        adopter.delete()
-        print(f"\nAdopter '{adopter.name}' deleted successfully")
-    else:
-        print("\nAdopter not found")
 
-def delete_adoption():
-    adoption_id = int(input("Enter the ID of the adoption to delete: "))
-    adoption = Adoption.find_by_id(adoption_id)
-    if adoption:
-        adoption.delete()
-        print(f"\nAdoption deleted successfully")
-    else:
-        print("\nAdoption not found")
 
 if __name__ == "__main__":
     main()
